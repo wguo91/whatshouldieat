@@ -10,18 +10,18 @@ body {
   margin: 0;
   padding: 0;
   h1 {
-    font-size: $h1-font-size;
+    font-size: $h2-font-size;
     font-weight: bold;
     text-align: center;
   }
   h2 {
-    font-size: $h2-font-size;
-  }
-  h3 {
     font-size: $h3-font-size;
   }
-  h4 {
+  h3 {
     font-size: $h4-font-size;
+  }
+  h4 {
+    font-size: $h5-font-size;
   }
   #location-form {
     input {
@@ -36,6 +36,8 @@ body {
   }
   .submit-btn,
   .btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     font-family: $font-stack;
     font-size: $input-font-size;
     background-color: $dark-gray;
@@ -101,7 +103,19 @@ body {
     }
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width:768px) {
+  h1 {
+    font-size: $h1-font-size;
+  }
+  h2 {
+    font-size: $h2-font-size;
+  }
+  h3 {
+    font-size: $h3-font-size;
+  }
+  h4 {
+    font-size: $h4-font-size;
+  }
   #gimme {
     margin: 0 0.5em;
   }

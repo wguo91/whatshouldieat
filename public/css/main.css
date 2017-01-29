@@ -38,15 +38,15 @@ body {
   /* autocomplete styles */
   /* placeholder styles */ }
   body h1 {
-    font-size: 5em;
+    font-size: 2.5em;
     font-weight: bold;
     text-align: center; }
   body h2 {
-    font-size: 2.5em; }
-  body h3 {
     font-size: 1.75em; }
-  body h4 {
+  body h3 {
     font-size: 1.5em; }
+  body h4 {
+    font-size: 1em; }
   body #location-form input {
     font-family: "Fira Sans Condensed", sans-serif;
     font-size: 1.5em;
@@ -56,6 +56,8 @@ body {
     width: 300px; }
   body .submit-btn,
   body .btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     font-family: "Fira Sans Condensed", sans-serif;
     font-size: 1.5em;
     background-color: #5C5C5C;
@@ -105,6 +107,18 @@ body {
       margin: 0.5em; }
 
 @media only screen and (min-width: 768px) {
+  h1 {
+    font-size: 5em; }
+
+  h2 {
+    font-size: 2.5em; }
+
+  h3 {
+    font-size: 1.75em; }
+
+  h4 {
+    font-size: 1.5em; }
+
   #gimme {
     margin: 0 0.5em; } }
 /* global variables */
