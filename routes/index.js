@@ -105,7 +105,7 @@ function generateBizInfo(bizList) {
   // generate commentary
   if(biz.review_count > 100) {
     let reviews = Math.floor(biz.review_count / 50) * 50;
-    commentary.push("This place has over " + reviews + " on fucking Yelp. Must be good.");
+    commentary.push("This place has over " + reviews + " reviews on fucking Yelp. Must be good.");
   }
   if(biz.rating > 3.5) {
     commentary.push("This place has a whopping  " + biz.rating + " star rating on Yelp.");
