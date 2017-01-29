@@ -1,13 +1,6 @@
-<div id="loading">
-  <div>
-    <h4>Loading...</h4>
-    <div class="double-bounce1"></div>
-    <div class="double-bounce2"></div>
-  </div>
-</div>
 <form id="location-form" method="post" action="/request/food">
   <h1>What should I eat?</h1>
-  <h2>Give me your fucking location first:</h2>
+  <h2>Give me your location first:</h2>
   <label for="address">Address</label>
   <input id="address" name="address" placeholder="Enter your address" type="text"
     aria-required="true">
@@ -17,5 +10,5 @@
 <footer>
   Please update your browser to the latest version of Google Chrome, Firefox, Internet Explorer, Safari, or Opera for the best user experience.
 </footer>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBvAGPFWreVwXF7Rlb8Zgm1zEKyaJZEtE&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&libraries=places"></script>
 <script src="/js/index.js"></script>

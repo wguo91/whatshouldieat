@@ -103,19 +103,7 @@ body {
     }
   }
 }
-@media only screen and (min-width:768px) {
-  h1 {
-    font-size: $h1-font-size;
-  }
-  h2 {
-    font-size: $h2-font-size;
-  }
-  h3 {
-    font-size: $h3-font-size;
-  }
-  h4 {
-    font-size: $h4-font-size;
-  }
+@media only screen and (min-width: 768px) {
   #gimme {
     margin: 0 0.5em;
   }

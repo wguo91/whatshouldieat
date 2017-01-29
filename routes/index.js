@@ -11,12 +11,16 @@ var yelp = new Yelp({
   token_secret: process.env.YELP_TOKEN_SECRET
 });
 
+const apiKey = process.env.GOOGLE_API_KEY;
 const conversionConstant = 0.000621371;
 var _bizList = null;
 var _lastType = null;
 
 router.get("/", function(req, res) {
-  res.render("index", {title: "What should I eat?"});
+  res.render("index", {
+    title: "What should I eat?",
+    apiKey: apiKey
+  });
   _bizList = null;
 });
 router.get("/request*", function(req, res) {
@@ -41,7 +45,8 @@ router.post("/request/:type", function(req, res) {
       if(errors.length != 0) {
         res.render("index", {
           errors: errors[0].msg,
-          title: "What should I eat?"
+          title: "What should I eat?",
+          apiKey: apiKey
         });
       } else {
         // set up HTTP request to Yelp API
@@ -59,11 +64,14 @@ router.post("/request/:type", function(req, res) {
             bizInfo: bizInfo,
             title: "What should I eat?",
             rejectionMsg: rejectionMsg,
-            myAddress: address
+            myAddress: address,
+            apiKey, apiKey
           });
         })
         .catch(function(err) {
-          console.error(err);
+          // if search failed
+          req.flash("errors", "Not a valid address, buddy.");
+          res.redirect("/");
         });
       }
       _lastType = currentType;
@@ -81,7 +89,8 @@ router.post("/request/:type", function(req, res) {
       bizInfo: bizInfo,
       title: "What should I eat?",
       rejectionMsg: rejectionMsg,
-      myAddress: address
+      myAddress: address,
+      apiKey, apiKey
     });
   }
 });
@@ -96,14 +105,14 @@ function generateBizInfo(bizList) {
   // generate commentary
   if(biz.review_count > 100) {
     let reviews = Math.floor(biz.review_count / 50) * 50;
-    commentary.push("The place has over " + reviews + " fucking reviews!");
+    commentary.push("This place has over " + reviews + " on fucking Yelp. Must be good.");
   }
   if(biz.rating > 3.5) {
-    commentary.push("The place has a fucking  " + biz.rating + " star rating!");
+    commentary.push("This place has a whopping  " + biz.rating + " star rating on Yelp.");
   }
   if(biz.distance < 5000) {
     var miles = biz.distance * conversionConstant;
-    commentary.push("This place is only a fucking " + miles.toFixed(2) + " miles away!");
+    commentary.push("By golly, you're only " + miles.toFixed(2) + "  miles away from this place. Go now.");
   }
   var commentaryIdx = Math.floor(Math.random()*(commentary.length));
   if(commentary.length === 0) {
@@ -133,6 +142,7 @@ function generateRejectionMsg(categories) {
   var category = categories[idx][0].split("(");
   var msgArray = [
     "No, that place is shit.",
+    "Skip that shit. Next.",
     "No, I hate " + category[0] + ".",
     "Not into " + category[0] + "."
   ];

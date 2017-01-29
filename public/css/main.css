@@ -1,3 +1,7 @@
+/* global variables */
+/* font related variables */
+/* colors */
+/* mixins */
 /**********************************
  * CSS RESET
  **********************************/
@@ -107,18 +111,6 @@ body {
       margin: 0.5em; }
 
 @media only screen and (min-width: 768px) {
-  h1 {
-    font-size: 5em; }
-
-  h2 {
-    font-size: 2.5em; }
-
-  h3 {
-    font-size: 1.75em; }
-
-  h4 {
-    font-size: 1.5em; }
-
   #gimme {
     margin: 0 0.5em; } }
 /* global variables */
@@ -229,5 +221,7 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0; }
+
+/*# sourceMappingURL=main.css.map */
 
 /*# sourceMappingURL=main.css.map */
