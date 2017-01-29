@@ -27,7 +27,10 @@
   function initMap() {
     var lat = Number.parseFloat("{{bizInfo.lat}}");
     var lng = Number.parseFloat("{{bizInfo.lng}}");
-    var myLatLng = {lat, lng};
+    var markerLatLng = {lat, lng};
+    // adjust map position
+    lat += 0.0015;
+    var mapLatLng = {lat, lng};
     // create styled map
     var styledMapType = new google.maps.StyledMapType(
       [
@@ -127,7 +130,7 @@
     );
     // create map object, set to the styled map
     var map = new google.maps.Map(document.getElementById("map"), {
-      center: myLatLng,
+      center: mapLatLng,
       scrollwheel: true,
       zoom: 16,
       disableDefaultUI: true,
@@ -139,7 +142,7 @@
     // create marker
     var marker = new google.maps.Marker({
       map: map,
-      position: myLatLng,
+      position: markerLatLng,
       icon: "/images/location-pin48.png"
     })
   }
