@@ -4,11 +4,12 @@
   "description": "Tells me where to eat",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wguo/random-projects.git"
+    "url": "git+https://github.com/wguo/whatshouldieat.git"
   },
   "author": "Wilson Guo",
   "license": "ISC",
