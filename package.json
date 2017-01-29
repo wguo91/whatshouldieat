@@ -1,0 +1,34 @@
+{
+  "name": "tellmewheretoeat",
+  "version": "1.0.0",
+  "description": "Tells me where to eat",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wguo/random-projects.git"
+  },
+  "author": "Wilson Guo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wguo/random-projects/issues"
+  },
+  "homepage": "https://github.com/wguo/random-projects#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.0",
+    "express-validator": "^3.1.2",
+    "mongoose": "^4.7.8",
+    "morgan": "^1.7.0",
+    "yelp": "^1.0.2"
+  },
+  "jshintConfig": {
+    "node": true
+  }
+}

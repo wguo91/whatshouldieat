@@ -1,0 +1,108 @@
+@import "_base.scss";
+/**********************************
+ * INDEX
+ **********************************/
+body {
+  font-family: $font-stack;
+  background: $bg-img no-repeat center center fixed;
+  background-size: cover;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  h1 {
+    font-size: $h1-font-size;
+    font-weight: bold;
+    text-align: center;
+  }
+  h2 {
+    font-size: $h2-font-size;
+  }
+  h3 {
+    font-size: $h3-font-size;
+  }
+  h4 {
+    font-size: $h4-font-size;
+  }
+  #location-form {
+    input {
+      font-family: $font-stack;
+      font-size: $input-font-size;
+      text-transform: uppercase;
+      padding: 0.5em;
+    }
+    input[type="text"] {
+      width: 300px;
+    }
+  }
+  .submit-btn,
+  .btn {
+    font-family: $font-stack;
+    font-size: $input-font-size;
+    background-color: $dark-gray;
+    color: $white;
+    text-transform: uppercase;
+    border: none;
+    margin: 0 0.5em 0.5em;
+    padding: 0.5em;
+  }
+  .submit-btn:hover,
+  .submit-btn:active,
+  .btn:hover,
+  .btn:active {
+    background-color: $black;
+  }
+  /* autocomplete styles */
+  .pac-container {
+    font-family: $font-stack;
+    font-size: $input-font-size;
+    .pac-item {
+      border: 0.1em solid $light-gray;
+      padding: 0.5em 1em;
+    }
+    span {
+      font-size: $input-font-size;
+    }
+  }
+  .pac-container:after,
+  .pac-icon {
+    display: none;
+  }
+  /* placeholder styles */
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    text-transform: uppercase;
+  }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    text-transform: uppercase;
+  }
+  :-ms-input-placeholder {
+    /* IE 10+ */
+    text-transform: uppercase;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    text-transform: uppercase;
+  }
+  #location-form {
+    text-align: center;
+    margin: 4em 1em;
+    h2 {
+      margin: 0.5em 0;
+    }
+    h3 {
+      margin: 0.5em 0;
+    }
+    label {
+      display: none;
+    }
+    #gimme {
+      margin: 0.5em;
+    }
+  }
+}
+@media only screen and (min-width: 768px) {
+  #gimme {
+    margin: 0 0.5em;
+  }
+}

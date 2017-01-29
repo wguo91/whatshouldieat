@@ -1,0 +1,49 @@
+/* global variables */
+
+$bg-img: url("/images/food-bg.jpg");
+
+/* font related variables */
+$font-stack: "Fira Sans Condensed", sans-serif;
+$h1-font-size: 5em;
+$h2-font-size: 2.5em;
+$h3-font-size: 1.75em;
+$h4-font-size: 1.5em;
+$input-font-size: 1.5em;
+$footer-font-size: 0.75em;
+
+/* colors */
+$dark-red-with-opacity: rgba(163,2,31,0.8);
+$dark-gray: #5C5C5C;
+$light-gray: #F6F6F6;
+$black: #000000;
+$white: #FFFFFF;
+
+/* mixins */
+@mixin center-ele($width, $height) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -($width/2);
+  margin-top: -($height/2);
+  width: $width;
+  height: $height;
+}
+@mixin width-height($width, $height) {
+  width: $width;
+  height: $height;
+}
+@mixin positionTopLeft($top, $left) {
+  position: absolute;
+  top: $top;
+  left: $left;
+}
+@mixin positionBottomLeft($bottom, $left) {
+  position: absolute;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin positionBottomRight($bottom, $right) {
+  position: absolute;
+  bottom: $bottom;
+  right: $right;
+}
