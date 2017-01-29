@@ -1,5 +1,5 @@
 # whatshouldieat
-Simple Express application suggesting where to eat 
+simple Express application that gives suggestions on where to eat  
 
 Technologies/APIs used:  
 Node.js  
