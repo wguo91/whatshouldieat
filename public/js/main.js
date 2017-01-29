@@ -1,7 +1,8 @@
 "use strict";
-window.onload = function() {
-  // for loading screen
-  fadeOut(document.getElementById("loading"));
+/**
+ * methods: fadeOut()
+ */
+window.onload = function(ele) {
   function fadeOut(ele) {
     ele.style.opacity = 1;
     (function fade() {
@@ -11,4 +12,6 @@ window.onload = function() {
         requestAnimationFrame(fade);
     })();
   }
+  // for loading screen
+  fadeOut(document.getElementById("loading-screen"));
 };

@@ -2,11 +2,10 @@
 /**********************************
  * LOADING
  **********************************/
-#loading {
+#loading-screen {
   @include width-height(100%, 100%);
-  @include positionTopLeft(0, 0);
+  @include positionTopLeft(0, 0, fixed);
   background-color: $light-gray;
-  position: fixed;
   display: block;
   z-index: 99;
   > div {

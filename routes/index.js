@@ -3,7 +3,6 @@ var express = require("express");
 var router = express.Router();
 var Yelp = require("yelp");
 
-// set up Yelp
 var yelp = new Yelp({
   consumer_key: process.env.YELP_CONSUMER_KEY,
   consumer_secret: process.env.YELP_CONSUMER_SECRET,
@@ -12,28 +11,41 @@ var yelp = new Yelp({
 });
 
 const apiKey = process.env.GOOGLE_API_KEY;
-const conversionConstant = 0.000621371;
-var _bizList = null;
-var _lastType = null;
+const pageTitle = "What should I eat?";
+const metersToMiles = 0.000621371;
 
+// Yelp search constants
+const limit = 15;
+const radiusFilter = 10000;
+
+var _bizList = null;
+var _lastSearchTerm = null;
+
+// homepage
 router.get("/", function(req, res) {
+  _bizList = null;
   res.render("index", {
-    title: "What should I eat?",
+    title: pageTitle,
     apiKey: apiKey
   });
-  _bizList = null;
 });
+
+// other pages with no routes will redirect to homepage
 router.get("/request*", function(req, res) {
   res.redirect("/");
 });
+
+// request search results
 router.post("/request/:type", function(req, res) {
-  var url, bizInfo, rejectionMsg;
-  var address = req.body.address;
-  var currentType = req.params.type;
-  // _bizList not initialized
-  if(_bizList === null || currentType !== _lastType) {
-    let msg = generateErrorMsg();
-    // validation
+  var url, bizInfo, rejectMsg, drinkMsg;
+  var userAddress = req.body.address;
+  var searchTerm = req.params.type;
+  /**
+   * CASE 1: _bizList not initialized (user has not begun searching)
+   *         OR user requests to search a different term (i.e. drinks or food)
+   */
+  if(_bizList === null || searchTerm !== _lastSearchTerm) {
+    let msg = getErrorMsg();
     req.checkBody({
       "address": {
         notEmpty: true,
@@ -42,30 +54,31 @@ router.post("/request/:type", function(req, res) {
     });
     req.getValidationResult().then(function(result) {
       var errors = result.array();
-      if(errors.length != 0) {
+      if(errors.length !== 0) {
         res.render("index", {
           errors: errors[0].msg,
-          title: "What should I eat?",
+          title: pageTitle,
           apiKey: apiKey
         });
       } else {
-        // set up HTTP request to Yelp API
         yelp.search({
-          term: currentType,
-          location: address,
-          radius_filter: 10000,
-          limit: 10
+          term: searchTerm,
+          location: userAddress,
+          radius_filter: radiusFilter,
+          limit: limit
         })
-        .then(function(searchResults) {
-          _bizList = searchResults.businesses;
-          bizInfo = generateBizInfo(_bizList);
-          rejectionMsg = generateRejectionMsg(bizInfo.categories);
+        .then(function(results) {
+          _bizList = results.businesses;
+          bizInfo = getBizInfo(_bizList);
+          rejectMsg = getRejectMsg(bizInfo.categories);
+          drinkMsg = getDrinkMsg();
           res.render("map", {
             bizInfo: bizInfo,
-            title: "What should I eat?",
-            rejectionMsg: rejectionMsg,
-            myAddress: address,
-            apiKey, apiKey
+            title: pageTitle,
+            rejectMsg: rejectMsg,
+            drinkMsg: drinkMsg,
+            userAddress: userAddress,
+            apiKey: apiKey
           });
         })
         .catch(function(err) {
@@ -74,61 +87,77 @@ router.post("/request/:type", function(req, res) {
           res.redirect("/");
         });
       }
-      _lastType = currentType;
+      _lastSearchTerm = searchTerm;
     });
-  // _bizList initialized but empty
+  /* CASE 2: _bizList initialized but empty (user ran out of options) */
   } else if(_bizList.length === 0) {
     _bizList = null;
-    req.flash("errors", "No more fucking choices. Try a different location.");
+    req.flash("errors", "No more choices. Try a different location.");
     res.redirect("/");
-  // _bizList not empty
+  /* CASE 3: _bizList not empty (user searches again) */
   } else {
-    bizInfo = generateBizInfo(_bizList);
-    rejectionMsg = generateRejectionMsg(bizInfo.categories);
+    bizInfo = getBizInfo(_bizList);
+    rejectMsg = getRejectMsg(bizInfo.categories);
+    drinkMsg = getDrinkMsg();
     res.render("map", {
       bizInfo: bizInfo,
-      title: "What should I eat?",
-      rejectionMsg: rejectionMsg,
-      myAddress: address,
-      apiKey, apiKey
+      title: pageTitle,
+      rejectMsg: rejectMsg,
+      drinkMsg: drinkMsg,
+      userAddress: userAddress,
+      apiKey: apiKey
     });
   }
 });
 
-function generateBizInfo(bizList) {
-  var idx = Math.floor(Math.random()*(bizList.length));
-  var biz = bizList[idx];
-  // remove biz from array to prevent the same recommendation
-  bizList.splice(idx, 1);
-  // convert distance to miles
-  var commentary = [];
-  // generate commentary
-  if(biz.review_count > 100) {
-    let reviews = Math.floor(biz.review_count / 50) * 50;
-    commentary.push("This place has over " + reviews + " reviews on fucking Yelp. Must be good.");
+/**
+ * methods: getBizInfo(), getErrorMsg(), getDrinkMsg(),
+ *          getRejectMsg()
+ */
+function getBizInfo(bizList) {
+  var reviews, miles, commentsIdx, comments = [];
+  const bizRatingCutoff = 3.5;
+  const bizDistanceCutoff = 5000;
+  const bizReviewCutoff = 100;
+  // choose a business at random
+  var bizIdx = Math.floor(Math.random()*(bizList.length));
+  var biz = bizList[bizIdx];
+  // remove selected biz to prevent the same recommendation from occurring twice
+  bizList.splice(bizIdx, 1);
+  // get commentary based on certain conditions
+  if(biz.review_count > bizReviewCutoff) {
+    reviews = Math.floor(biz.review_count/100)*100;
+    comments.push("This place has over "+reviews+
+      " reviews on Yelp. Just wow.");
   }
-  if(biz.rating > 3.5) {
-    commentary.push("This place has a whopping  " + biz.rating + " star rating on Yelp.");
+  if(biz.rating > bizRatingCutoff) {
+    comments.push("This place has a "+biz.rating+
+      " star rating on Yelp. Whoa.");
   }
-  if(biz.distance < 5000) {
-    var miles = biz.distance * conversionConstant;
-    commentary.push("By golly, you're only " + miles.toFixed(2) + "  miles away from this place. Go now.");
+  if(biz.distance < bizDistanceCutoff) {
+    // convert to miles and round to the nearest two decimal places
+    miles = (biz.distance*metersToMiles).toFixed(2);
+    comments.push("You're only "+miles+
+      "  miles away from this place. Go now.");
   }
-  var commentaryIdx = Math.floor(Math.random()*(commentary.length));
-  if(commentary.length === 0) {
-    commentary.push("Wait, nevermind. This place sucks.");
+  // default commentary if above criteria not met
+  if(comments.length === 0) {
+    comments.push("Wait, nevermind. This place sucks.");
   }
+  // randomly choose a comment
+  commentsIdx = Math.floor(Math.random()*(comments.length));
+  // return object containing necessary biz info
   return {
     name: biz.name,
     address: biz.location.display_address[0],
     lat: biz.location.coordinate.latitude,
     lng: biz.location.coordinate.longitude,
     categories: biz.categories,
+    comments: comments[commentsIdx],
     url: biz.url,
-    commentary: commentary[commentaryIdx]
   };
 }
-function generateErrorMsg() {
+function getErrorMsg() {
   var msgArray = [
     "You have to put in an address.",
     "Bad input, buddy.",
@@ -137,7 +166,14 @@ function generateErrorMsg() {
   ];
   return msgArray[Math.floor(Math.random()*(msgArray.length))];
 }
-function generateRejectionMsg(categories) {
+function getDrinkMsg() {
+  var msgArray = [
+    "I'm thirsty.",
+    "Can I get drink?"
+  ];
+  return msgArray[Math.floor(Math.random()*(msgArray.length))];
+}
+function getRejectMsg(categories) {
   var idx = Math.floor(Math.random()*(categories.length));
   var category = categories[idx][0].split("(");
   var msgArray = [

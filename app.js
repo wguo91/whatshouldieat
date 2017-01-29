@@ -3,7 +3,6 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
 var morgan = require("morgan");
 var handlebars = require("express-handlebars");
 var session = require("express-session");
@@ -60,5 +59,6 @@ app.use(expressValidator({
     };
   }
 }));
+
 app.use("/", routes);
 app.listen(config.port);

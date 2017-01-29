@@ -30,6 +30,7 @@
     "yelp": "^1.0.2"
   },
   "jshintConfig": {
-    "node": true
+    "node": true,
+    "browser": true
   }
 }

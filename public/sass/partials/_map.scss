@@ -3,9 +3,8 @@
  * RECOMMENDATION
  **********************************/
 #recommendation {
-  z-index: 1;
   position: relative;
-  text-align: left;
+  z-index: 1;
   h3 {
     background-color: $dark-red-with-opacity;
     color: $white;
@@ -16,18 +15,23 @@
   span {
     font-weight: bold;
   }
+  #food-form, #drinks-form {
+    input {
+      margin: 0 0.5em 0.5em;
+    }
+  }
 }
-#map {
+#google-map {
   @include width-height(100%, 100%);
-  @include positionTopLeft(0, 0);
+  @include positionTopLeft(0, 0, absolute);
   z-index: 0;
 }
-#back {
-  @include positionBottomLeft(0, 0);
+#change-location {
+  @include positionBottomLeft(0, 0, absolute);
   z-index: 1;
 }
 #yelp {
-  @include positionBottomRight(0, 0);
+  @include positionBottomRight(0, 0, absolute);
   z-index: 1;
 }
 .hide {

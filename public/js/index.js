@@ -1,15 +1,12 @@
+"use strict";
+/**
+ * methods: initAutocomplete(), geolocate()
+ */
 window.onload = function() {
-  // for loading screen
-
-  // address autocomplete
-  var autocomplete;
-  initAutocomplete();
-  var address = document.getElementById("address");
-  address.addEventListener("focus", geolocate, false);
+  // initializes Google's Places API
   function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById("address")),
-        {types: ['geocode']});
+      (document.getElementById("address")), {types: ['geocode']});
   }
   // bias the autocomplete object to the user's geographical location
   function geolocate() {
@@ -28,4 +25,8 @@ window.onload = function() {
       });
     }
   }
+  var autocomplete;
+  var address = document.getElementById("address");
+  initAutocomplete();
+  address.addEventListener("focus", geolocate, false);
 };

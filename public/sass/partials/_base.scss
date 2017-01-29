@@ -1,5 +1,4 @@
 /* global variables */
-
 $bg-img: url("/images/food-bg.jpg");
 
 /* font related variables */
@@ -33,18 +32,18 @@ $white: #FFFFFF;
   width: $width;
   height: $height;
 }
-@mixin positionTopLeft($top, $left) {
-  position: absolute;
+@mixin positionTopLeft($top, $left, $position) {
+  position: $position;
   top: $top;
   left: $left;
 }
-@mixin positionBottomLeft($bottom, $left) {
-  position: absolute;
+@mixin positionBottomLeft($bottom, $left, $position) {
+  position: $position;
   bottom: $bottom;
   left: $left;
 }
-@mixin positionBottomRight($bottom, $right) {
-  position: absolute;
+@mixin positionBottomRight($bottom, $right, $position) {
+  position: $position;
   bottom: $bottom;
   right: $right;
 }
