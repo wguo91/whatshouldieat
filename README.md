@@ -1,7 +1,7 @@
 # whatshouldieat
 Simple Express application suggesting where to eat 
 
-Technologies/APIs used:
+Technologies/APIs used:  
 Node.js  
 Express.js  
 Yelp API  
