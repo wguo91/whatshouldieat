@@ -2,7 +2,7 @@
   "name": "tellmewheretoeat",
   "version": "1.0.0",
   "description": "Tells me where to eat",
-  "main": "app.js",
+  "main": "app.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "grunt",
@@ -15,7 +15,7 @@
   "author": "Wilson Guo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wguo/random-projects/issues"
+    "url": "https://github.com/wguo/whatshouldieat/issues"
   },
   "homepage": "https://github.com/wguo/random-projects#readme",
   "dependencies": {
