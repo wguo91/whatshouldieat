@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "postinstall": ["grunt", "gulp"],
+    "start": "node app.min.js"
   },
   "repository": {
     "type": "git",
