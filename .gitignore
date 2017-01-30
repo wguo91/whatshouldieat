@@ -1,2 +1,5 @@
 .DS_Store
 .sass-cache
+**/*.min.js
+**/*.min.css
+node_modules

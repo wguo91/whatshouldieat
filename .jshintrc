@@ -1,0 +1,9 @@
+{
+  "node": true,
+  "browser": true,
+  "strict": false,
+  "esversion": 6,
+  "globals": {
+    "google": true
+  }
+}

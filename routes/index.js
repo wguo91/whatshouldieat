@@ -37,7 +37,7 @@ router.get("/request*", function(req, res) {
 
 // request search results
 router.post("/request/:type", function(req, res) {
-  var url, bizInfo, rejectMsg, drinkMsg;
+  var url, bizInfo, rejectMsg, drinkMsg, msg;
   var userAddress = req.body.address;
   var searchTerm = req.params.type;
   /**
@@ -45,7 +45,7 @@ router.post("/request/:type", function(req, res) {
    *         OR user requests to search a different term (i.e. drinks or food)
    */
   if(_bizList === null || searchTerm !== _lastSearchTerm) {
-    let msg = getErrorMsg();
+    msg = getErrorMsg();
     req.checkBody({
       "address": {
         notEmpty: true,
@@ -169,7 +169,7 @@ function getErrorMsg() {
 function getDrinkMsg() {
   var msgArray = [
     "I'm thirsty.",
-    "Can I get drink?"
+    "Can I get a drink?"
   ];
   return msgArray[Math.floor(Math.random()*(msgArray.length))];
 }

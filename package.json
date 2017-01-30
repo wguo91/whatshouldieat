@@ -29,8 +29,10 @@
     "morgan": "^1.7.0",
     "yelp": "^1.0.2"
   },
-  "jshintConfig": {
-    "node": true,
-    "browser": true
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.0.0"
   }
 }

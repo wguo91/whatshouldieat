@@ -11,9 +11,12 @@ var routes = require("./routes");
 var flash = require("connect-flash");
 var expressValidator = require("express-validator");
 
-// set up the view engine
+// set up the view engine and options for handlebars
 app.set("views", path.join(__dirname, "views"));
-app.engine("handlebars", handlebars({defaultLayout: "layout"}));
+app.engine("handlebars", handlebars({
+  defaultLayout: "layout",
+  min: true
+}));
 app.set("view engine", "handlebars");
 
 // set up bodyParser and morgan middleware
