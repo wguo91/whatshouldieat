@@ -19,7 +19,7 @@ $black: #000000;
 $white: #FFFFFF;
 
 /* mixins */
-@mixin center-ele($width, $height) {
+@mixin centerEle($width, $height) {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -28,21 +28,21 @@ $white: #FFFFFF;
   width: $width;
   height: $height;
 }
-@mixin width-height($width, $height) {
+@mixin widthHeight($width, $height) {
   width: $width;
   height: $height;
 }
-@mixin positionTopLeft($top, $left, $position) {
+@mixin positionTopLeft($position, $top, $left) {
   position: $position;
   top: $top;
   left: $left;
 }
-@mixin positionBottomLeft($bottom, $left, $position) {
+@mixin positionBottomLeft($position, $bottom, $left) {
   position: $position;
   bottom: $bottom;
   left: $left;
 }
-@mixin positionBottomRight($bottom, $right, $position) {
+@mixin positionBottomRight($position, $bottom, $right) {
   position: $position;
   bottom: $bottom;
   right: $right;

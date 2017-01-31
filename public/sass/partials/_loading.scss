@@ -3,17 +3,17 @@
  * LOADING
  **********************************/
 #loading-screen {
-  @include width-height(100%, 100%);
-  @include positionTopLeft(0, 0, fixed);
+  @include widthHeight(100%, 100%);
+  @include positionTopLeft(fixed, 0, 0);
   background-color: $light-gray;
   display: block;
   z-index: 99;
   > div {
-    @include center-ele(400px, 200px);
+    @include centerEle(400px, 200px);
     text-align: center;
     .double-bounce1,
     .double-bounce2 {
-      @include center-ele(50px, 50px);
+      @include centerEle(50px, 50px);
       border-radius: 50%;
       background-color: #A9A9A9;
       opacity: 0.8;

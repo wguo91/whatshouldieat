@@ -22,16 +22,16 @@
   }
 }
 #google-map {
-  @include width-height(100%, 100%);
-  @include positionTopLeft(0, 0, absolute);
+  @include widthHeight(100%, 100%);
+  @include positionTopLeft(absolute, 0, 0);
   z-index: 0;
 }
 #change-location {
-  @include positionBottomLeft(0, 0, absolute);
+  @include positionBottomLeft(absolute, 0, 0);
   z-index: 1;
 }
 #yelp {
-  @include positionBottomRight(0, 0, absolute);
+  @include positionBottomRight(absolute, 0, 0);
   z-index: 1;
 }
 .hide {

@@ -3,7 +3,7 @@
  * FOOTER
  **********************************/
 footer {
-  @include positionBottomLeft(0, 0, fixed);
+  @include positionBottomLeft(fixed, 0, 0);
   font-size: $footer-font-size;
   color: $white;
   width: 100%;
