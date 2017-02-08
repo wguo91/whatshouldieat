@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // set up express-session (straight from documentation)
 app.use(session({
-  secret: config.mySecret, // used to sign the session ID cookie
+  secret: config.secret, // used to sign the session ID cookie
   saveUninitialized: true, // forces a session to be saved to the store
   resave: true // forces the session to be saved back to the store
 }));
