@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wguo/whatshouldieat.git"
+    "url": "git+https://github.com/wguo91/whatshouldieat.git"
   },
   "author": "Wilson Guo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wguo/whatshouldieat/issues"
+    "url": "https://github.com/wguo91/whatshouldieat/issues"
   },
-  "homepage": "https://github.com/wguo/whatshouldieat#readme",
+  "homepage": "https://github.com/wguo91/whatshouldieat#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
     "connect-flash": "^0.1.1",

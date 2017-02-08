@@ -21,7 +21,37 @@ const radiusFilter = 10000;
 var _bizList = null;
 var _lastSearchTerm = null;
 
-// homepage
+function getErrorMsg() {
+  var msgArray = [
+    "You have to put in an address.",
+    "Bad input, buddy.",
+    "Do you want a recommendation or not?",
+    "That's not a valid address."
+  ];
+  return msgArray[Math.floor(Math.random()*(msgArray.length))];
+}
+
+function getDrinkMsg() {
+  var msgArray = [
+    "I'm thirsty.",
+    "Can I get a drink?"
+  ];
+  return msgArray[Math.floor(Math.random()*(msgArray.length))];
+}
+
+function getRejectMsg(categories) {
+  var idx = Math.floor(Math.random()*(categories.length));
+  var category = categories[idx][0].split("(");
+  var msgArray = [
+    "No, that place is shit.",
+    "Skip that place. Next.",
+    "No, I hate " + category[0] + ".",
+    "Not into " + category[0] + "."
+  ];
+  return msgArray[Math.floor(Math.random()*(msgArray.length))];
+}
+
+// GET homepage
 router.get("/", function(req, res) {
   _bizList = null;
   res.render("index", {
@@ -30,12 +60,12 @@ router.get("/", function(req, res) {
   });
 });
 
-// other pages with no routes will redirect to homepage
+// GET all other URLs will redirect to homepage
 router.get("/request*", function(req, res) {
   res.redirect("/");
 });
 
-// request search results
+// POST obtain search results
 router.post("/request/:type", function(req, res) {
   var url, bizInfo, rejectMsg, drinkMsg, msg;
   var userAddress = req.body.address;
@@ -131,14 +161,12 @@ function getBizInfo(bizList) {
       " reviews on Yelp. Just wow.");
   }
   if(biz.rating > bizRatingCutoff) {
-    comments.push("This place has a "+biz.rating+
-      " star rating on Yelp. Whoa.");
+    comments.push("This place has a "+biz.rating+" star rating on Yelp. Whoa.");
   }
   if(biz.distance < bizDistanceCutoff) {
     // convert to miles and round to the nearest two decimal places
     miles = (biz.distance*metersToMiles).toFixed(2);
-    comments.push("You're only "+miles+
-      "  miles away from this place. Go now.");
+    comments.push("You're only "+miles+" miles away from this place. Go now.");
   }
   // default commentary if above criteria not met
   if(comments.length === 0) {
@@ -156,32 +184,5 @@ function getBizInfo(bizList) {
     comments: comments[commentsIdx],
     url: biz.url,
   };
-}
-function getErrorMsg() {
-  var msgArray = [
-    "You have to put in an address.",
-    "Bad input, buddy.",
-    "Do you want a recommendation or not?",
-    "That's not a valid address."
-  ];
-  return msgArray[Math.floor(Math.random()*(msgArray.length))];
-}
-function getDrinkMsg() {
-  var msgArray = [
-    "I'm thirsty.",
-    "Can I get a drink?"
-  ];
-  return msgArray[Math.floor(Math.random()*(msgArray.length))];
-}
-function getRejectMsg(categories) {
-  var idx = Math.floor(Math.random()*(categories.length));
-  var category = categories[idx][0].split("(");
-  var msgArray = [
-    "No, that place is shit.",
-    "Skip that shit. Next.",
-    "No, I hate " + category[0] + ".",
-    "Not into " + category[0] + "."
-  ];
-  return msgArray[Math.floor(Math.random()*(msgArray.length))];
 }
 module.exports = router;

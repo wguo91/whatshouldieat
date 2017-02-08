@@ -14,8 +14,7 @@ var expressValidator = require("express-validator");
 // set up the view engine and options for handlebars
 app.set("views", path.join(__dirname, "views"));
 app.engine("handlebars", handlebars({
-  defaultLayout: "layout",
-  min: true
+  defaultLayout: "layout"
 }));
 app.set("view engine", "handlebars");
 
