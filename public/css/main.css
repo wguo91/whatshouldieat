@@ -70,6 +70,14 @@ body {
       width: 300px; }
     body #location-form input[type="submit"] {
       margin: 0.5em; }
+  body .error-container {
+    text-transform: none;
+    margin: 4em auto;
+    text-align: center;
+    width: 80%; }
+    body .error-container a {
+      color: rgba(163, 2, 31, 0.8);
+      text-decoration: none; }
   body .submit-btn,
   body .btn {
     -webkit-appearance: none;
@@ -209,13 +217,14 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0;
-  font-size: 0.75em;
   color: #FFFFFF;
   width: 100%;
   text-transform: none;
   text-align: center;
   background-color: #5C5C5C;
   padding: 0.25em 0; }
+  footer small {
+    font-size: 0.75em; }
 
 /*# sourceMappingURL=main.css.map */
 

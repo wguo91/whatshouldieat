@@ -4,11 +4,13 @@
  **********************************/
 footer {
   @include positionBottomLeft(fixed, 0, 0);
-  font-size: $footer-font-size;
   color: $white;
   width: 100%;
   text-transform: none;
   text-align: center;
   background-color: #5C5C5C;
   padding: 0.25em 0;
+  small {
+    font-size: $footer-font-size;
+  }
 }

@@ -1,7 +1,7 @@
 {
   "name": "tellmewheretoeat",
   "version": "1.0.0",
-  "description": "Tells me where to eat",
+  "description": "simple Express application suggesting where to eat",
   "main": "app.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

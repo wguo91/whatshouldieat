@@ -14,7 +14,7 @@ const apiKey = process.env.GOOGLE_API_KEY;
 const pageTitle = "What should I eat?";
 const metersToMiles = 0.000621371;
 
-// Yelp search constants
+// Yelp search constraints
 const limit = 15;
 const radiusFilter = 10000;
 
@@ -51,6 +51,48 @@ function getRejectMsg(categories) {
   return msgArray[Math.floor(Math.random()*(msgArray.length))];
 }
 
+function getBizInfo(bizList) {
+  var reviews, miles, commentsIdx, comments = [];
+  const bizRatingCutoff = 3.5;
+  const bizDistanceCutoff = 5000;
+  const bizReviewCutoff = 100;
+  // choose a business at random
+  var bizIdx = Math.floor(Math.random()*(bizList.length));
+  var biz = bizList[bizIdx];
+  // remove selected biz to prevent the same recommendation from occurring twice
+  bizList.splice(bizIdx, 1);
+  // get commentary based on certain conditions
+  if(biz.review_count > bizReviewCutoff) {
+    reviews = Math.floor(biz.review_count/100)*100;
+    comments.push("This place has over "+reviews+
+      " reviews on Yelp. Just wow.");
+  }
+  if(biz.rating > bizRatingCutoff) {
+    comments.push("This place has a "+biz.rating+" star rating on Yelp. Whoa.");
+  }
+  if(biz.distance < bizDistanceCutoff) {
+    // convert to miles and round to the nearest two decimal places
+    miles = (biz.distance*metersToMiles).toFixed(2);
+    comments.push("You're only "+miles+" miles away from this place. Go now.");
+  }
+  // default commentary if above criteria not met
+  if(comments.length === 0) {
+    comments.push("Wait, nevermind. This place sucks.");
+  }
+  // randomly choose a comment
+  commentsIdx = Math.floor(Math.random()*(comments.length));
+  // return object containing necessary biz info
+  return {
+    name: biz.name,
+    address: biz.location.display_address[0],
+    lat: biz.location.coordinate.latitude,
+    lng: biz.location.coordinate.longitude,
+    categories: biz.categories,
+    comments: comments[commentsIdx],
+    url: biz.url,
+  };
+}
+
 // GET homepage
 router.get("/", function(req, res) {
   _bizList = null;
@@ -58,11 +100,6 @@ router.get("/", function(req, res) {
     title: pageTitle,
     apiKey: apiKey
   });
-});
-
-// GET all other URLs will redirect to homepage
-router.get("/request*", function(req, res) {
-  res.redirect("/");
 });
 
 // POST obtain search results
@@ -140,49 +177,4 @@ router.post("/request/:type", function(req, res) {
   }
 });
 
-/**
- * methods: getBizInfo(), getErrorMsg(), getDrinkMsg(),
- *          getRejectMsg()
- */
-function getBizInfo(bizList) {
-  var reviews, miles, commentsIdx, comments = [];
-  const bizRatingCutoff = 3.5;
-  const bizDistanceCutoff = 5000;
-  const bizReviewCutoff = 100;
-  // choose a business at random
-  var bizIdx = Math.floor(Math.random()*(bizList.length));
-  var biz = bizList[bizIdx];
-  // remove selected biz to prevent the same recommendation from occurring twice
-  bizList.splice(bizIdx, 1);
-  // get commentary based on certain conditions
-  if(biz.review_count > bizReviewCutoff) {
-    reviews = Math.floor(biz.review_count/100)*100;
-    comments.push("This place has over "+reviews+
-      " reviews on Yelp. Just wow.");
-  }
-  if(biz.rating > bizRatingCutoff) {
-    comments.push("This place has a "+biz.rating+" star rating on Yelp. Whoa.");
-  }
-  if(biz.distance < bizDistanceCutoff) {
-    // convert to miles and round to the nearest two decimal places
-    miles = (biz.distance*metersToMiles).toFixed(2);
-    comments.push("You're only "+miles+" miles away from this place. Go now.");
-  }
-  // default commentary if above criteria not met
-  if(comments.length === 0) {
-    comments.push("Wait, nevermind. This place sucks.");
-  }
-  // randomly choose a comment
-  commentsIdx = Math.floor(Math.random()*(comments.length));
-  // return object containing necessary biz info
-  return {
-    name: biz.name,
-    address: biz.location.display_address[0],
-    lat: biz.location.coordinate.latitude,
-    lng: biz.location.coordinate.longitude,
-    categories: biz.categories,
-    comments: comments[commentsIdx],
-    url: biz.url,
-  };
-}
 module.exports = router;

@@ -63,4 +63,18 @@ app.use(expressValidator({
 }));
 
 app.use("/", routes);
+app.use(function(req, res) {
+  res.status(404);
+  res.render("404", {
+    title: "404 Page Not Found"
+  });
+});
+app.use(function(err, req, res, next) {
+  console.log(err);
+  res.status(500);
+  res.render("500", {
+    title: "Internal Server Error"
+  });
+});
+
 app.listen(config.port);

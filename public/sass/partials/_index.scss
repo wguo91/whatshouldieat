@@ -47,6 +47,16 @@ body {
       margin: 0.5em;
     }
   }
+  .error-container {
+    text-transform: none;
+    margin: 4em auto;
+    text-align: center;
+    width: 80%;
+    a {
+      color: $dark-red-with-opacity;
+      text-decoration: none;
+    }
+  }
   .submit-btn,
   .btn {
     -webkit-appearance: none;
